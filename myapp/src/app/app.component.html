@@ -1,0 +1,46 @@
+<h1>{{ title }}</h1>
+<h2>Website made by: {{ author}} </h2>
+@for(s of states; track $index){
+  <!-- keeping track of the values in the array 
+  track by index  -->
+  <p>{{ s }}</p>
+}
+@if(isHungry){
+  <p>Is hungry</p>
+}
+@else {
+  <p>Isn't hungry</p>
+}
+<h2>Current User: {{ currentUser.name }}</h2>
+<p>Hometown: {{currentUser.hometown }}</p>
+@if (currentUser.tired === true){
+  <p>Is tired</p>
+}
+<h3>All Users: </h3> 
+<!-- creating an html table 
+1. table <table></table>
+2. table row <tr></tr>
+3. table header <th></th>
+4. table data <td></td>  -->
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Hometown</th>
+    <th>Tired?</th>
+    <th></th>
+  </tr>
+  @for (u of allUsers; track $index) {
+    <tr [class.awake] = "u.tired !== true" [class.tired]="u.tired == true">
+      <td> {{u.name}} </td>
+      <td> {{u.hometown}} </td>
+      @if(u.tired){
+        <td>sweepy widdle baby</td>
+      }
+      @else {
+        <td>awake</td>
+      }
+      <td><button (click)="changeUser(u)">Select {{u.name}}</button></td>
+      <!-- (click) = event handler -->
+    </tr>
+  }
+</table>
